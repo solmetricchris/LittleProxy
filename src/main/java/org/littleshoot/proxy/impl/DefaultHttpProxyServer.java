@@ -1,6 +1,6 @@
 package org.littleshoot.proxy.impl;
 
-import static org.littleshoot.proxy.TransportProtocol.*;
+import static org.littleshoot.proxy.TransportProtocol.TCP;
 import io.netty.bootstrap.ChannelFactory;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
@@ -338,14 +338,18 @@ public class DefaultHttpProxyServer implements HttpProxyServer {
         serverGroup.stop();
     }
 
-    private HttpProxyServer start() {
+    public HttpProxyServer start() {
         LOG.info("Starting proxy at address: " + this.requestedAddress);
 
         synchronized (serverGroup) {
-            if (!serverGroup.stopped) {
-                doStart();
+            LOG.info("checking if the groupServer is stopped");
+            if (serverGroup.stopped) {
+            	LOG.info("it was stopped so....starting");
+            	doStart();
+                
             } else {
-                throw new Error("Already stopped");
+            	LOG.info("you can't start something that is already started");
+                throw new Error("Already started");
             }
         }
 
@@ -405,6 +409,8 @@ public class DefaultHttpProxyServer implements HttpProxyServer {
         }
 
         this.boundAddress = ((InetSocketAddress) future.channel().localAddress());
+        serverGroup.stopped = false;
+
         LOG.info("Proxy started at address: " + this.boundAddress);
     }
 
@@ -494,7 +500,7 @@ public class DefaultHttpProxyServer implements HttpProxyServer {
          */
         private final Map<TransportProtocol, EventLoopGroup> proxyToServerWorkerPools = new HashMap<TransportProtocol, EventLoopGroup>();
 
-        private volatile boolean stopped = false;
+        private volatile boolean stopped = true;
 
         /**
          * JVM shutdown hook to stop this server group. Declared as a class-level variable to allow removing the shutdown hook when the
@@ -851,12 +857,9 @@ public class DefaultHttpProxyServer implements HttpProxyServer {
             return this;
         }
 
-        @Override
-        public HttpProxyServer start() {
-            return build().start();
-        }
 
-        private DefaultHttpProxyServer build() {
+        @Override
+        public DefaultHttpProxyServer build() {
             final ServerGroup serverGroup;
 
             if (original != null) {

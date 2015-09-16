@@ -2,6 +2,8 @@ package org.littleshoot.proxy;
 
 import java.net.InetSocketAddress;
 
+import org.littleshoot.proxy.impl.DefaultHttpProxyServer;
+
 /**
  * Configures and starts an {@link HttpProxyServer}. The HttpProxyServer is
  * built using {@link #start()}. Sensible defaults are available for all
@@ -300,13 +302,12 @@ public interface HttpProxyServerBootstrap {
      */
     HttpProxyServerBootstrap withNetworkInterface(InetSocketAddress inetSocketAddress);
 
+	
     /**
-     * <p>
-     * Build and starts the server.
-     * </p>
-     *
-     * @return the newly built and started server
+     * @return returns a DefaultHttpProxyServer based on the built up configuration
      */
-    HttpProxyServer start();
+    DefaultHttpProxyServer build();
+
+ 
 
 }

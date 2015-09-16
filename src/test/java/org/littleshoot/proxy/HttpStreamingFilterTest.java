@@ -60,7 +60,7 @@ public class HttpStreamingFilterTest {
                         };
                     }
                 })
-                .start();
+                .build().start();
     }
 
     @After

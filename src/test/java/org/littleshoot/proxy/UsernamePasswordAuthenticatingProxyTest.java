@@ -10,6 +10,7 @@ public class UsernamePasswordAuthenticatingProxyTest extends BaseProxyTest
         this.proxyServer = bootstrapProxy()
                 .withPort(0)
                 .withProxyAuthenticator(this)
+                .build()
                 .start();
     }
 

@@ -77,6 +77,7 @@ public class HttpFilterTest {
         this.proxyServer = DefaultHttpProxyServer.bootstrap()
                 .withPort(0)
                 .withFiltersSource(filtersSource)
+                .build()
                 .start();
 
         final InetSocketAddress isa = new InetSocketAddress("127.0.0.1", proxyServer.getListenAddress().getPort());

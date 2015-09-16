@@ -15,6 +15,7 @@ public class MITMUsernamePasswordAuthenticatingProxyTest extends
                 .withPort(0)
                 .withProxyAuthenticator(this)
                 .withManInTheMiddle(new SelfSignedMitmManager())
+                .build()
                 .start();
     }
 

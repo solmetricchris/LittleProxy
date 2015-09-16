@@ -22,6 +22,7 @@ public class NoChainedProxiesTest extends AbstractProxyTest {
                     }
                 })
                 .withIdleConnectionTimeout(1)
+                .build()
                 .start();
     }
 

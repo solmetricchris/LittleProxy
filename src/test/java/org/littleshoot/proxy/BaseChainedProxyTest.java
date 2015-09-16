@@ -1,7 +1,10 @@
 package org.littleshoot.proxy;
 
+import static org.hamcrest.Matchers.in;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import io.netty.handler.codec.http.HttpRequest;
-import org.littleshoot.proxy.impl.DefaultHttpProxyServer;
 
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -10,10 +13,7 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.atomic.AtomicLong;
 
-import static org.hamcrest.Matchers.in;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import org.littleshoot.proxy.impl.DefaultHttpProxyServer;
 
 /**
  * Base class for tests that test a proxy chained to an upstream proxy. In
@@ -52,12 +52,12 @@ public abstract class BaseChainedProxyTest extends BaseProxyTest {
         REQUESTS_SENT_BY_DOWNSTREAM.set(0);
         REQUESTS_RECEIVED_BY_UPSTREAM.set(0);
         TRANSPORTS_USED.clear();
-        this.upstreamProxy = upstreamProxy().start();
+        this.upstreamProxy = upstreamProxy().build().start();
         this.proxyServer = bootstrapProxy()
                 .withName("Downstream")
                 .withPort(0)
                 .withChainProxyManager(chainedProxyManager())
-                .plusActivityTracker(DOWNSTREAM_TRACKER).start();
+                .plusActivityTracker(DOWNSTREAM_TRACKER).build().start();
     }
 
     protected HttpProxyServerBootstrap upstreamProxy() {

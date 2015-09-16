@@ -35,6 +35,7 @@ public class IdleTest {
 
         proxyServer = DefaultHttpProxyServer.bootstrap()
                 .withPort(0)
+                .build()
                 .start();
         proxyServer.setIdleConnectionTimeout(10);
 

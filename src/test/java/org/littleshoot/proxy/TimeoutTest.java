@@ -55,6 +55,7 @@ public class TimeoutTest {
         proxyServer = DefaultHttpProxyServer.bootstrap()
                 .withPort(0)
                 .withIdleConnectionTimeout(1)
+                .build()
                 .start();
 
         mockServer.when(request()
@@ -87,6 +88,7 @@ public class TimeoutTest {
         proxyServer = DefaultHttpProxyServer.bootstrap()
                 .withPort(0)
                 .withConnectTimeout(1000)
+                .build()
                 .start();
 
         DefaultHttpClient httpClient = new DefaultHttpClient();

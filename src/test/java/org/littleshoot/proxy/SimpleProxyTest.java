@@ -8,6 +8,7 @@ public class SimpleProxyTest extends BaseProxyTest {
     protected void setUp() {
         this.proxyServer = bootstrapProxy()
                 .withPort(0)
+                .build()
                 .start();
     }
 }

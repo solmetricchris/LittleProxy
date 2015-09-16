@@ -96,6 +96,7 @@ public class MitmProxyTest extends BaseProxyTest {
                         };
                     }
                 })
+                .build()
                 .start();
     }
 

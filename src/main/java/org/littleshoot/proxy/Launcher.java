@@ -1,5 +1,9 @@
 package org.littleshoot.proxy;
 
+import java.io.File;
+import java.net.InetSocketAddress;
+import java.util.Arrays;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.HelpFormatter;
@@ -14,10 +18,6 @@ import org.littleshoot.proxy.impl.DefaultHttpProxyServer;
 import org.littleshoot.proxy.impl.ProxyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.File;
-import java.net.InetSocketAddress;
-import java.util.Arrays;
 
 /**
  * Launches a new HTTP proxy.
@@ -119,7 +119,7 @@ public class Launcher {
         }
 
         System.out.println("About to start...");
-        bootstrap.start();
+        bootstrap.build().start();
     }
 
     private static void printHelp(final Options options,

@@ -54,7 +54,7 @@ public class ChainedProxyWithFallbackTest extends BaseProxyTest {
                                 .add(ChainedProxyAdapter.FALLBACK_TO_DIRECT_CONNECTION);
                     }
                 })
-                .start();
+                .build().start();
     }
 
     @Override

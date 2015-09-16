@@ -13,6 +13,7 @@ public class IdlingProxyTest extends AbstractProxyTest {
         this.proxyServer = bootstrapProxy()
                 .withPort(0)
                 .withIdleConnectionTimeout(1)
+                .build()
                 .start();
     }
 
